@@ -4,13 +4,24 @@
 
 var generatePassword = function () {
   //prompt how many characters the password needs to be, anywhere between 8 and 128
-  promptLength();
-
+  var characterLength = promptLength();
+  
+  console.log(characterLength);
   passwordRequirements();
+  console.log(desiredCharacters);
+  var password = "";
 
+  // for loop to create a string until it is the length of characterLength
+  for (var i=0; i < characterLength; i++) {
+  // if statement going through all 4 categories, if yes, add one character from the category to the password
+    if (lowerCase) {
+      var addCharacter = lower[randomNumber()];
+      password += addCharacter;
+      console.log(password);
+    }
+  }
 
-
-  //password is generated and saved to passwordText.value 
+    // nest if statements to add only characters they wanted inside their password
 }
 
 var promptLength = function () {
@@ -21,9 +32,17 @@ var promptLength = function () {
     promptLength();
   }
   else {
+    console.log(characterLength);
     return characterLength;
   }
 }
+
+
+
+var lowerCase;
+var upperCase;
+var specialCharacters;
+var numbers;
 
 var passwordRequirements = function () {
   // prompt do you want to include lower case characters
@@ -48,7 +67,17 @@ var passwordRequirements = function () {
     return lowerCase, upperCase, specialCharacters, numbers;
   }
 }
+
+var randomNumber = function (arrayName) {
+  Math.floor(Math.random() * arrayName.length)
+};
   
+var passwordArrays = {
+  lower: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+  upper: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+  special: ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|'],
+  number: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+}
 
   
 
@@ -65,4 +94,5 @@ function writePassword() {
 }
 
 // Add event listener to generate button
+debugger;
 generateBtn.addEventListener("click", writePassword);
