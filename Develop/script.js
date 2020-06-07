@@ -2,44 +2,70 @@
 
 //Create Function that prompts user for password criteria
 var password = "";
+var desiredCharacters = "";
 var generatePassword = function () {
-  debugger;
   //prompt how many characters the password needs to be, anywhere between 8 and 128
   var characterLength = promptLength();
   
-  console.log(characterLength);
+  //prompt which type of character they'd like in their function
   passwordRequirements();
 
+  // add at least one of each character the user desires to the password
+  // && add each string of desired character type to new string desiredCharacters
   if (lowerCase) {
-    var addCharacter = passwordArrays.lower[Math.floor(Math.random() * passwordArrays.lower.length)];
+    desiredCharacters += lowerString;
+    var addCharacter = lowerString[Math.floor(Math.random() * lowerString.length)];
     password += addCharacter;
   }
 
   if (upperCase)  {
-    var addCharacter = passwordArrays.upper[Math.floor(Math.random() * passwordArrays.upper.length)];
+    desiredCharacters += upperString
+    var addCharacter = upperString[Math.floor(Math.random() * upperString.length)];
     password += addCharacter;
   }
 
   if (specialCharacters) {
-    var addCharacter = passwordArrays.special[Math.floor(Math.random() * passwordArrays.special.length)];
+    desiredCharacters += specialString;
+    var addCharacter = specialString[Math.floor(Math.random() * specialString.length)];
     password += addCharacter;
   }
 
   if (numbers) {
-    var addCharacter = passwordArrays.number[Math.floor(Math.random() * passwordArrays.number.length)];
+    desiredCharacters += numberString;
+    var addCharacter = numberString[Math.floor(Math.random() * numberString.length)];
     password += addCharacter;
   }
-    // for loop to create a string until it is the length of characterLength
-  //for (var i=0; i < characterLength; i++) {
-  // if statement going through all 4 categories, if yes, add one character from the category to the password
 
-    //}
+  desiredCharacters.toString;
+  console.log(desiredCharacters);
+
+    // loop to add additional characters until password is the length desired
+  while (characterLength > password.length) {
+    var addCharacter = desiredCharacters[Math.floor(Math.random() * desiredCharacters.length)];
+    password += addCharacter;
+  }
+
+  // log unshuffled password
   console.log(password);
+
+  // final shuffle of the password string to ensure randomness
+  var shufflePassword = password.split(''),
+    n = shufflePassword.length;
+
+  for (var i=n-1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shufflePassword[i];
+    shufflePassword[i] = shufflePassword[j];
+    shufflePassword[j] = tmp;
+  }
+  return shufflePassword.join('');
 }
 
+// ask user how many characters their password should be
 var promptLength = function () {
   var characterLength = window.prompt ("How many characters would you like your password to be? Please choose a value between 8 and 128.")
 
+  // validate they are choosing a correct amt of characters, loop until they do
   if (characterLength < 8 || characterLength > 128) {
     window.alert("Please choose a value between 8 and 128.");
     promptLength();
@@ -70,7 +96,7 @@ var passwordRequirements = function () {
   // prompt - numbers
   numbers = window.confirm("Do you want to include numbers?");
 
-  // verify that at least one of those prompts was answered w/ a yes
+  // verify that at least one of those prompts was answered w/ a yes, loop until they do 
 
   if (lowerCase === false && upperCase === false && specialCharacters === false && numbers === false) {
     window.alert("You need to choose at least one required character for your password. Try again!");
@@ -81,14 +107,12 @@ var passwordRequirements = function () {
   }
 }
 
+// strings containing each type of character user could include
+var lowerString = "abcdefghijklmnopqrstuvwxyz"
+var upperString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+var specialString = '~`!@#$%^&*()_-+={[}]|\:;"<,>.?/'
+var numberString = "1234567890"
 
-  
-var passwordArrays = {
-  lower: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
-  upper: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-  special: ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|'],
-  number: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
