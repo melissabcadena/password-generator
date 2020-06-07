@@ -9,4 +9,4 @@ CSS
 Javascript
 
 ## Website
-https://melissabcadena.ggithub.io/password-generator/
+https://melissabcadena.github.io/password-generator/
